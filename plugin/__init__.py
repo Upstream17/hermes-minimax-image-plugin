@@ -1,8 +1,26 @@
-"""MiniMax (China region) image generation backend.
+"""MiniMax image generation backend.
 
 Exposes MiniMax's ``image-01`` and ``image-01-live`` models as an
-:class:`ImageGenProvider` implementation. Uses the China-region endpoint
-``https://api.minimaxi.com/v1/image_generation``.
+:class:`ImageGenProvider` implementation.
+
+Endpoints
+---------
+The plugin defaults to the China-region endpoint
+(``https://api.minimaxi.com/v1/image_generation``). To use the global
+endpoint (``https://api.minimax.io/v1/image_generation``) instead —
+for users on a non-China Token Plan or pay-as-you-go key — set:
+
+    export MINIMAX_IMAGE_API_URL=https://api.minimax.io/v1/image_generation
+
+(or add it to ``$HERMES_HOME/.env``).
+
+> **Untested note.** Only the China endpoint has been verified
+> end-to-end by the author. The global endpoint is supported per
+> MiniMax's published docs
+> (https://platform.minimax.io/docs/guides/image-generation), but the
+> model catalog, response shape, and key types may differ slightly.
+> If a global-endpoint user hits an issue, check the docs first —
+> the plugin's parser is written against the China response shape.
 
 Features:
 - Text-to-image generation (T2I)
@@ -55,10 +73,18 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-# China-region endpoint — do NOT use api.minimax.io (global). Token Plan
-# keys only work against api.minimaxi.com.
-API_URL = "https://api.minimaxi.com/v1/image_generation"
+# Default endpoint: China region. Override with the env var
+# ``MINIMAX_IMAGE_API_URL`` to use the global endpoint
+# (``https://api.minimax.io/v1/image_generation``) for non-China users.
+# See the module docstring — the global endpoint is documented by
+# MiniMax but not tested end-to-end by the author.
+DEFAULT_API_URL = "https://api.minimaxi.com/v1/image_generation"
 DEFAULT_TIMEOUT = 120  # seconds
+
+# Environment variable that overrides the default endpoint. Set it to
+# ``https://api.minimax.io/v1/image_generation`` to route through the
+# MiniMax global endpoint instead of the China endpoint.
+API_URL_ENV_VAR = "MINIMAX_IMAGE_API_URL"
 
 # ---------------------------------------------------------------------------
 # Model catalog
@@ -216,6 +242,20 @@ def _key_from_env_file() -> Optional[str]:
     return None
 
 
+def _resolve_api_url() -> str:
+    """Pick the endpoint URL: ``MINIMAX_IMAGE_API_URL`` env var, falling
+    back to :data:`DEFAULT_API_URL` (China region).
+
+    Users on a non-China Token Plan or pay-as-you-go key should set
+    ``MINIMAX_IMAGE_API_URL=https://api.minimax.io/v1/image_generation``
+    to route through the global endpoint.
+    """
+    env_override = os.environ.get(API_URL_ENV_VAR)
+    if isinstance(env_override, str) and env_override.strip():
+        return env_override.strip()
+    return DEFAULT_API_URL
+
+
 def _get_api_key() -> str:
     """Resolve the MiniMax China API key from the first available source.
 
@@ -300,18 +340,20 @@ class MinimaxImageGenProvider(ImageGenProvider):
 
     def get_setup_schema(self) -> Dict[str, Any]:
         return {
-            "name": "MiniMax (China)",
+            "name": "MiniMax (China + Global)",
             "badge": "paid",
             "tag": (
-                "image-01 / image-01-live — Token Plan shared quota with the "
-                "minimax-cn chat provider. If your chat is already configured, "
-                "no extra setup is needed."
+                "image-01 / image-01-live. Defaults to China endpoint "
+                "(api.minimaxi.com); set MINIMAX_IMAGE_API_URL to use the "
+                "global endpoint (api.minimax.io) for non-China keys. "
+                "China endpoint tested by author; global endpoint is "
+                "documented but unverified — see README."
             ),
             "env_vars": [
                 {
                     "key": "MINIMAX_CN_API_KEY",
                     "prompt": (
-                        "MiniMax (China) API key — leave blank if your "
+                        "MiniMax API key — leave blank if your "
                         "minimax-cn chat provider is already configured"
                     ),
                     "url": "https://platform.minimax.io/user-center/payment/token-plan",
@@ -412,9 +454,11 @@ class MinimaxImageGenProvider(ImageGenProvider):
             "Content-Type": "application/json",
         }
 
+        api_url = _resolve_api_url()
+
         try:
             response = requests.post(
-                API_URL,
+                api_url,
                 headers=headers,
                 json=payload,
                 timeout=DEFAULT_TIMEOUT,

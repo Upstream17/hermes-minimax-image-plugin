@@ -5,6 +5,36 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.0] - 2026-06-30
+
+### Added
+- **Global endpoint support.** The plugin now accepts a `MINIMAX_IMAGE_API_URL`
+  env var to route through MiniMax's global endpoint
+  (`https://api.minimax.io/v1/image_generation`) instead of the
+  default China endpoint (`https://api.minimaxi.com/...`). Users on
+  non-China Token Plan or pay-as-you-go keys can opt in by adding
+  one line to `~/.hermes/.env`. The China endpoint remains the
+  default.
+
+  > **Untested by the author on the global endpoint.** The global
+  > endpoint is supported per [MiniMax's published docs](https://platform.minimax.io/docs/guides/image-generation),
+  > but the author only has a China-region account. The response
+  > parser was written against the China response shape
+  > (`data.image_urls` / `data.image_base64`); if a global-endpoint
+  > user hits a response-shape mismatch, the plugin will need
+  > adjustments. Documented honestly in the README.
+
+- **Bilingual READMEs with `README.md` as Chinese (default).** Switched
+  the default README from English to Chinese, with `README.en.md`
+  as the English version. Both have a small `Lang:` tag in the
+  top-right that links to the other. GitHub renders `README.md` by
+  default; the file naming follows the standard
+  `README.<lang>.md` convention used by hermes-agent, Vue, etc.
+
+### Changed
+- **`get_setup_schema` tag** now describes the dual-endpoint support
+  and points users at `MINIMAX_IMAGE_API_URL` for the global endpoint.
+
 ## [0.1.1] - 2026-06-30
 
 ### Fixed
@@ -20,11 +50,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Version reset to 0.1.1.** The plugin works end-to-end but is a
   vibe-coded single-file drop-in, not a stable release — 0.1.x
   reflects that.
-- **Bilingual READMEs.** `README.md` (English, primary) points to
+- **Bilingual READMEs.** `README.md` (English, primary) pointed to
   `README.zh.md` (Chinese, vibe-toned, Hermes × MiniMax collab
-  framing) at the top.
-- **README copy.** English version is the primary landing page;
-  Chinese version is a casual / 协作者 voice instead of a spec doc.
+  framing) at the top. (Reorganized in 0.2.0: Chinese is now the
+  default `README.md`, English is `README.en.md`.)
+- **README copy.** English version was the primary landing page;
+  Chinese version was a casual / 协作者 voice instead of a spec doc.
   All technical info preserved in both.
 
 ## [0.1.0] - 2026-06-20

@@ -1,6 +1,6 @@
 name: minimax
-version: 0.1.1
-description: "MiniMax (China region) image generation backend — image-01 and image-01-live. Auto-detects the same API key as the minimax-cn chat provider; Token Plan covers both text and image on one quota."
+version: 0.2.0
+description: "MiniMax image generation backend — image-01 and image-01-live. Defaults to the China endpoint (api.minimaxi.com); set MINIMAX_IMAGE_API_URL for the global endpoint (api.minimax.io). Auto-detects the same API key as the minimax-cn chat provider; Token Plan covers both text and image on one quota."
 author: Upstream17
 kind: backend
 requires_env:
