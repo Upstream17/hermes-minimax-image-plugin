@@ -2,13 +2,13 @@
 
 # Hermes MiniMax Image Plugin
 
-<sub>Built with [Hermes Agent](https://hermes-agent.nousresearch.com/) in collaboration with the user.</sub>
-
-A [Hermes Agent](https://github.com/NousResearch/hermes-agent) user plugin that adds
-**MiniMax image generation** — `image-01` and `image-01-live` — as a
-drop-in `image_generate` backend. The same `MINIMAX_CN_API_KEY` (China) or
-`MINIMAX_API_KEY` (global) you use for chat covers image generation on
-your Token Plan, so no separate billing is needed.
+> A vibe-coded drop-in: Hermes Agent + MiniMax, exposing MiniMax's
+> `image-01` and `image-01-live` models through Hermes's
+> `image_generate` tool.
+>
+> One-line install. If you're on a Token Plan and have the
+> `minimax-cn` chat provider configured, the same key is reused
+> automatically — no extra setup.
 
 This is the official extension path documented at
 [`hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin`](https://hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin) —
@@ -225,10 +225,11 @@ The plugin registers itself at Hermes boot via the standard `register(ctx)`
 entry point. The dispatcher in `agent/image_gen_registry.py` selects it when
 `image_gen.provider` is set to `minimax`.
 
-For the full contract, see
-[`hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin`](https://hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin).
+See the
+[Hermes docs](https://hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin)
+for the full reference.
 
-## Known quirks
+## Notes
 
 - **Returned image URLs are signed Aliyun OSS URLs**, valid for ~24h
   (controlled by the `Expires` query param). Save the bytes locally if you

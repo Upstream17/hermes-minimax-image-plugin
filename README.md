@@ -2,11 +2,9 @@
 
 # 🎨 Hermes × MiniMax 生图小插件
 
-<sub>Built with [Hermes Agent](https://hermes-agent.nousresearch.com/) in collaboration with the user.</sub>
-
-> 一个 vibe coding 出来的玩意儿——**Hermes Agent**(那个会写代码、跑命令、记你偏好的 AI 助手)和**MiniMax** 联手,在 `image_generate` 工具里把 MiniMax 的 `image-01` / `image-01-live` 生图模型接了进来。
+> 一个 vibe coding 出来的玩意儿——Hermes Agent+MiniMax 协作完成,在 `image_generate` 工具里把 MiniMax 的 `image-01` / `image-01-live` 生图模型接了进来。
 >
-> 一行命令装好,Token Plan 用户的 `minimax-cn` chat key **自动复用**,不用单独配。生图配额跟文字共享,月底见。
+> 一行命令装好,Token Plan 用户的 `minimax-cn` chat key 可以自动复用,不用单独配key。
 
 - 仓库:[github.com/Upstream17/hermes-minimax-image-plugin](https://github.com/Upstream17/hermes-minimax-image-plugin)
 - 协作者:Hermes Agent × MiniMax
@@ -185,9 +183,9 @@ hermes config set image_gen.model image-01-live
 
 plugin 在 Hermes 启动时通过标准的 `register(ctx)` 入口挂上,写到 `agent/image_gen_registry.py` 的注册表里。`config.yaml` 里 `image_gen.provider = minimax` 就会路由过来。
 
-完整契约见 [Hermes 官方文档](https://hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin)。
+参考 [Hermes 文档](https://hermes-agent.nousresearch.com/docs/developer-guide/image-gen-provider-plugin)。
 
-## 几个不大不小但你迟早会撞的坑
+## 注意事项
 
 - 🕐 **返回的图 URL 是签名 OSS 链接,大约 24h 失效**。`Expires` 那个 query 参数就是。要长期存,自己下载到本地
 - 💰 **Token Plan 共享配额**,生图吃文字预算,见上面
