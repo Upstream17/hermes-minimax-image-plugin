@@ -5,6 +5,19 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.2.2] - 2026-06-30
+
+### Changed
+- **Trimmed tone.** Per feedback that the prior version was a bit
+  chuunibyou:
+  - Dropped the `Built with Hermes Agent` one-liner; the opening
+    quote already names Hermes Agent + MiniMax as collaborators,
+    so the credit line was redundant.
+  - Replaced "完整契约见" / "For the full contract, see" with
+    "参考" / "See the Hermes docs ... for the full reference".
+  - Renamed "几个不大不小但你迟早会撞的坑" / "Known quirks" to
+    "注意事项" / "Notes".
+
 ## [0.2.1] - 2026-06-30
 
 ### Changed
