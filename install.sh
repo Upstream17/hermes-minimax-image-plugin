@@ -10,8 +10,9 @@ set -e
 
 REPO_RAW="https://raw.githubusercontent.com/Upstream17/hermes-minimax-image-plugin/main"
 
-# --- Detect plugin install directory (per official Hermes docs) ---
-# Hermes scans ~/.hermes/plugins/image_gen/<name>/ for user plugins.
+# --- Detect plugin install directory ---
+# The official `hermes plugins install/uninstall` CLI targets
+# ~/.hermes/plugins/image_gen/<name>/ — same path the loader scans.
 if [[ -n "$HERMES_HOME" ]]; then
     PLUGIN_DIR="$HERMES_HOME/plugins/image_gen/minimax"
 elif [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"* ]]; then

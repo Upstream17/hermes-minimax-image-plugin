@@ -47,7 +47,10 @@ irm https://raw.githubusercontent.com/Upstream17/hermes-minimax-image-plugin/mai
 What the scripts do:
 
 1. Detect your OS and the correct plugin directory
-   (`~/.hermes/plugins/image_gen/minimax/` per the official spec)
+   (`%LOCALAPPDATA%\hermes\plugins\image_gen\minimax\` on Windows,
+   `~/.hermes/plugins/image_gen/minimax/` on macOS / Linux / WSL — this
+   is the path the official `hermes plugins install` command targets
+   and the path the plugin loader scans at startup)
 2. Copy `__init__.py` and `plugin.yaml` into that directory
 3. Run `hermes plugins enable minimax` (the official enable command —
    it registers the plugin in `plugins.enabled` and avoids the
@@ -64,8 +67,10 @@ What the scripts do:
 # 1. Clone
 git clone https://github.com/Upstream17/hermes-minimax-image-plugin.git
 cd hermes-minimax-image-plugin
-
-# 2. Copy plugin files into the official user-plugin location.
+```bash
+# 2. Drop the plugin files into the official user-plugin location
+#    (this is the path `hermes plugins install` targets and the path the
+#    plugin loader scans).
 #    macOS / Linux / WSL:
 mkdir -p ~/.hermes/plugins/image_gen/minimax
 cp plugin/* ~/.hermes/plugins/image_gen/minimax/
@@ -138,6 +143,10 @@ hermes config set image_gen.model fal-ai/flux-2/klein/9b
 The plugin stays installed but inactive. To fully remove:
 
 ```bash
+# Easiest:
+hermes plugins uninstall minimax
+
+# Or manually:
 rm -rf ~/.hermes/plugins/image_gen/minimax       # macOS / Linux / WSL
 Remove-Item -Recurse "$env:LOCALAPPDATA\hermes\plugins\image_gen\minimax"  # Windows
 ```
@@ -164,7 +173,7 @@ And remove `- minimax` from `plugins.enabled` in `config.yaml` (or run
 ├── CHANGELOG.md           # version history
 ├── install.sh             # macOS / Linux / WSL one-liner installer
 ├── install.ps1            # Windows one-liner installer
-├── fix-config-list.py     # belt-and-suspenders fix for old Hermes <0.18
+├── fix-config-list.py     # belt-and-suspenders fix for old Hermes <0.18 (not needed if you use the installer)
 └── plugin/
     ├── __init__.py        # the actual provider code
     └── plugin.yaml        # manifest (name, kind, requires_env)
@@ -204,10 +213,9 @@ For the full contract, see
 in the verify step. Check:
 
 1. `hermes --version` ≥ 0.17
-2. The files are at `~/.hermes/plugins/image_gen/minimax/` (with
-   `image_gen/` in the path — not just `~/.hermes/plugins/minimax/`).
-   This is the older path from before the official spec was written and
-   is silently ignored by modern plugin loaders.
+2. The files are at `~/.hermes/plugins/image_gen/minimax/` — this is
+   the path the loader scans (key prefix is `image_gen/`, the final
+   directory is the plugin name).
 3. `plugins.enabled` in `config.yaml` includes `minimax`:
    ```yaml
    plugins:

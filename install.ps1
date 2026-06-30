@@ -9,9 +9,8 @@ $ErrorActionPreference = "Stop"
 
 $RepoRaw = "https://raw.githubusercontent.com/Upstream17/hermes-minimax-image-plugin/main"
 
-# Per official Hermes docs, user plugins live under
-#   %LOCALAPPDATA%\hermes\plugins\image_gen\<name>\
-# (NOT under plugins\minimax — that's a legacy path).
+# The official `hermes plugins install/uninstall` CLI targets
+# %LOCALAPPDATA%\hermes\plugins\image_gen\<name>\ — same path the loader scans.
 if ($env:HERMES_HOME) {
     $PluginDir = Join-Path $env:HERMES_HOME "plugins\image_gen\minimax"
 } else {
