@@ -1,10 +1,8 @@
 <p align="right"><sub>Lang: <a href="README.md">中文</a> | <b>English</b></sub></p>
 
-> 🤖 **Built with [Hermes Agent](https://hermes-agent.nousresearch.com/) in collaboration with the user.** Product design, key decisions, Token Plan account, and acceptance testing by [Upstream17](https://github.com/Upstream17); code and documentation by Hermes Agent. A small vibe-coded collaboration between two AIs and a person — published as a vibe-coding share, **not an industrial-grade product**.
->
-> If you're a vibe coder using Hermes Agent too: small repos like this are meant to be "I wrote it, might as well publish it" — they don't need to be perfect to be public.
-
 # Hermes MiniMax Image Plugin
+
+<sub>Built with [Hermes Agent](https://hermes-agent.nousresearch.com/) in collaboration with the user.</sub>
 
 A [Hermes Agent](https://github.com/NousResearch/hermes-agent) user plugin that adds
 **MiniMax image generation** — `image-01` and `image-01-live` — as a

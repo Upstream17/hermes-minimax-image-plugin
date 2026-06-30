@@ -8,16 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [0.2.1] - 2026-06-30
 
 ### Changed
-- **Added a top-of-README "Built with Hermes Agent" disclaimer** in
-  both `README.md` (Chinese) and `README.en.md` (English). The
-  disclaimer credits the collaboration: product design / key
-  decisions / Token Plan account / acceptance testing by
-  [Upstream17](https://github.com/Upstream17); code and
-  documentation by Hermes Agent. Pure vibe-coded collaboration —
-  not an industrial-grade product. The note also reassures
-  other vibe coders that small repos like this are meant to be
-  "I wrote it, might as well publish it" — they don't need to
-  be perfect to be public.
+- **One-line `Built with Hermes Agent` credit** added under the H1
+  in both READMEs. No further commentary.
 
 ## [0.2.0] - 2026-06-30
 
