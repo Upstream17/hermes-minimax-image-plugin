@@ -1,6 +1,10 @@
-# 🎨 Hermes × MiniMax 生图小插件
-
 <p align="right"><sub>Lang: <b>中文</b> | <a href="README.en.md">English</a></sub></p>
+
+> 🤖 **Built with [Hermes Agent](https://hermes-agent.nousresearch.com/) in collaboration with the user.** 产品设计 / 关键决策 / Token Plan 账号 / 验收测试 — [Upstream17](https://github.com/Upstream17);代码 + 文档 — Hermes Agent。两个 AI + 一个人协作,公开出来纯属 vibe coding 的分享,**不是工业级产品**。
+>
+> 如果你也是用 Hermes Agent 的 vibe coder,这种小仓库本来就是为了"我写完顺手公开"——不需要完美才能公开。
+
+# 🎨 Hermes × MiniMax 生图小插件
 
 > 一个 vibe coding 出来的玩意儿——**Hermes Agent**(那个会写代码、跑命令、记你偏好的 AI 助手)和**MiniMax** 联手,在 `image_generate` 工具里把 MiniMax 的 `image-01` / `image-01-live` 生图模型接了进来。
 >
